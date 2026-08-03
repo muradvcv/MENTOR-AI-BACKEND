@@ -1,10 +1,13 @@
 import express, { Request, Response } from "express";
+const cors = require('cors');
 const app = express()
 const port = 5000
 require('dotenv').config()
+app.use(cors());
+app.use(express.json());
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-app.get('/', (req:Request, res:Response) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })
 
@@ -27,12 +30,27 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+
+
+    const database = client.db("Mentor-Ai");
+    const jobCollection = database.collection("Jobs");
+
+    // POST API to add a new job
+    app.post('/api/addjob',async(req:Request,res:Response)=>{
+      const job=req.body;
+      const result=await jobCollection.insertOne(job);
+      res.send(result)
+    })
+
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);

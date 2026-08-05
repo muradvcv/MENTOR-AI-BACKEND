@@ -1,17 +1,15 @@
 {
-  "name": "mentor-ai-backent",
+  "name": "mentor-ai-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "tsx watch index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -23,6 +21,6 @@
     "@types/express": "^5.0.6",
     "@types/node": "^26.1.2",
     "tsx": "^4.23.4",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.2"
   }
 }
